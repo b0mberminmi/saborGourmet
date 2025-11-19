@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>Sabor Gourmet - Sistema de Reservas</title>
+</head>
+<body>
+  <h1>Bienvenido a Sabor Gourmet</h1>
+  <h2>Sistema de reservas</h2>
+
+  <div th:if="${username}">
+    <p>¡Bienvenido/a <span th:text="${username}"></span>!</p>
+    <form th:action="@{/logout}" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <button type="submit">Cerrar sesión</button>
+    </form>
+  </div>
+  
+  <div th:unless="${username}">
+    <p><a th:href="@{/login}">Iniciar sesión</a> | <a th:href="@{/registro}">Registrarse</a></p>
+  </div>
+</body>
+</html>
