@@ -1,6 +1,6 @@
 # Sabor Gourmet - Sistema de Autenticación
 
-Sistema de gestión de usuarios con autenticación segura desarrollado con Spring Boot y PostgreSQL.
+Sistema de gestión de reservas desarrollado con Spring Boot y PostgreSQL.
 
 ## 🚀 Tecnologías Utilizadas
 
