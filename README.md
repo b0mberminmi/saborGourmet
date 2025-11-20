@@ -183,4 +183,4 @@ Proyecto desarrollado para el curso de Desarrollo de Software Web II - IPSS.
 
 ## 📄 Licencia
 
-Este proyecto es de uso académico.
+Este proyecto es de uso académico y está estríctamente prohibido su uso para usos comerciales.
