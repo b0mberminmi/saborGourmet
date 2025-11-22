@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservas - Sabor Gourmet</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+
+<body class="min-vh-100 d-flex justify-content-center align-items-center bg-light">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12" style="max-width: 500px;">
+
+                <div class="text-center mb-4">
+                    <h1 class="mb-2">Reservas</h1>
+                    <h2 class="fs-5 text-muted">Selecciona un día</h2>
+                </div>
+
+                <!-- Botones navegación -->
+                <div class="d-flex justify-content-center gap-2 mb-3">
+                    <a href="/" class="btn btn-outline-secondary btn-sm">Inicio</a>
+                    <a href="/mis-reservas" class="btn btn-outline-primary btn-sm">Mis reservas</a>
+                </div>
+
+                <!-- Mensaje éxito -->
+                <div th:if="${param.success}" class="alert alert-success text-center">
+                    Reserva creada correctamente.
+                </div>
+
+                <!-- Mensaje cancelado -->
+                <div th:if="${param.cancelada}" class="alert alert-warning text-center">
+                    Reserva cancelada.
+                </div>
+
+                <!-- CARD principal -->
+                <div class="card shadow-sm p-4">
+
+                    <p class="text-center mb-3">Selecciona un día para ver la disponibilidad:</p>
+
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center mb-2"
+                            th:each="dia : ${dias}">
+                            <span th:text="${dia}"></span>
+
+                            <a class="btn btn-primary btn-sm"
+                               th:href="@{/reservas/disponibilidad(fecha=${dia})}">
+                                Ver disponibilidad
+                            </a>
+                        </li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -3,21 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <title>Sabor Gourmet - Sistema de Reservas</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
 </head>
-<body>
-  <h1>Bienvenido a Sabor Gourmet</h1>
-  <h2>Sistema de reservas</h2>
+<body class="min-vh-100 d-flex justify-content-center align-items-center bg-light">
 
-  <div th:if="${username}">
-    <p>¡Bienvenido/a <span th:text="${username}"></span>!</p>
-    <form th:action="@{/logout}" method="post">
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-      <button type="submit">Cerrar sesión</button>
-    </form>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-8 col-lg-6 text-center">
+
+        <h1 class="mb-2">Sabor Gourmet</h1>
+        <h2 class="mb-4 fs-4">Sistema de reservas</h2>
+
+        <!-- Usuario autenticado -->
+        <div th:if="${username}">
+          <p class="mb-3">
+            ¡Bienvenido/a <strong th:text="${username}"></strong>!
+          </p>
+
+          <div class="mb-3">
+            <a href="/mis-reservas" class="btn btn-outline-primary mb-2">Mis reservas</a>
+            <a href="/admin" class="btn btn-primary btn-lg mb-2" th:if="${isAdmin}"> Administrar </a>
+            <a href="/reservas" class="btn btn-outline-secondary mb-2">Reservar</a>
+          </div>
+
+          <form th:action="@{/logout}" method="post" class="mt-2">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="btn btn-danger">Cerrar sesión</button>
+          </form>
+        </div>
+
+        <!-- Usuario NO autenticado -->
+        <div th:unless="${username}">
+          <p class="mb-3">
+            Para usar el sistema de reservas, primero debes iniciar sesión.
+          </p>
+          <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <a th:href="@{/login}" class="btn btn-primary">Iniciar sesión</a>
+            <a th:href="@{/registro}" class="btn btn-outline-secondary">Registrarse</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
-  
-  <div th:unless="${username}">
-    <p><a th:href="@{/login}">Iniciar sesión</a> | <a th:href="@{/registro}">Registrarse</a></p>
-  </div>
+
+  <script src="/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

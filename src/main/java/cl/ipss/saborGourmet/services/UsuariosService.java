@@ -33,4 +33,9 @@ public class UsuariosService {
     public boolean existeUsuario(String username) {
         return usuariosRepository.findByUsername(username).isPresent();
     }
+
+    public Usuarios obtenerPorUsername(String username) {
+        return usuariosRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+}
 }

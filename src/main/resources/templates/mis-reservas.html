@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Mis reservas - Sabor Gourmet</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+
+<body class="min-vh-100 d-flex justify-content-center align-items-center bg-light">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12" style="max-width: 500px;">
+
+                <div class="text-center mb-4">
+                    <h1 class="mb-2">Mis reservas</h1>
+                    <h2 class="fs-6 text-muted">
+                        Usuario: <strong th:text="${username}"></strong>
+                    </h2>
+                </div>
+
+                <!-- Mensaje de reserva cancelada -->
+                <div th:if="${param.cancelada}" class="alert alert-warning text-center">
+                    Reserva cancelada correctamente.
+                </div>
+
+                <!-- CARD PRINCIPAL -->
+                <div class="card shadow-sm p-4">
+
+                    <!-- Si NO hay reservas -->
+                    <div th:if="${#lists.isEmpty(reservas)}" class="alert alert-info text-center mb-0">
+                        No tienes reservas activas próximas.
+                    </div>
+
+                    <!-- Si hay reservas -->
+                    <div th:if="${!#lists.isEmpty(reservas)}">
+
+                        <table class="table table-striped mt-2">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Mesa</th>
+                                    <th>Personas</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="reserva : ${reservas}">
+                                    <td th:text="${reserva.fecha}"></td>
+                                    <td th:text="${reserva.mesa.nombre}"></td>
+                                    <td th:text="${reserva.cantidadPersonas}"></td>
+
+                                    <td>
+                                        <form th:action="@{/mis-reservas/cancelar}" method="post">
+
+                                            <!-- CSRF -->
+                                            <input type="hidden"
+                                                th:name="${_csrf.parameterName}"
+                                                th:value="${_csrf.token}" />
+
+                                            <input type="hidden" name="idReserva"
+                                                   th:value="${reserva.id}" />
+
+                                            <button class="btn btn-danger btn-sm">
+                                                Cancelar
+                                            </button>
+
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+                <!-- BOTONES ABAJO -->
+                <div class="d-flex justify-content-center gap-2 mt-3">
+                    <a href="/reservas" class="btn btn-secondary">Volver</a>
+                    <a href="/" class="btn btn-outline-secondary">Inicio</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
