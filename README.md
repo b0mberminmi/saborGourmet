@@ -42,7 +42,7 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/saborGourmet
 spring.datasource.username=saborGourmet
 spring.datasource.password=saborGourmet
 spring.jpa.hibernate.ddl-auto=update
-server.port=8081
+server.port=8082
 ```
 
 **Nota:** Si usas el usuario `postgres` por defecto, actualiza las credenciales en `src/main/resources/application.properties`.
@@ -66,9 +66,9 @@ mvn clean package
 mvn spring-boot:run
 ```
 
-La aplicación estará disponible en: **http://localhost:8081**
+La aplicación estará disponible en: **http://localhost:8082**
 
-> Nota: si otro servicio ocupa el puerto 8081, cambia `server.port` en `src/main/resources/application.properties`.
+> Nota: si otro servicio ocupa el puerto 8082, cambia `server.port` en `src/main/resources/application.properties`.
 
 ## 📱 Endpoints Principales
 
@@ -92,7 +92,7 @@ La aplicación estará disponible en: **http://localhost:8081**
 
 ### Registrar un nuevo usuario
 
-1. Accede a: http://localhost:8081/registro
+1. Accede a: http://localhost:8082/registro
 2. Completa el formulario:
    - Username
    - Password
@@ -101,7 +101,7 @@ La aplicación estará disponible en: **http://localhost:8081**
 
 ### Iniciar sesión
 
-1. Accede a: http://localhost:8081/login
+1. Accede a: http://localhost:8082/login
 2. Ingresa tus credenciales
 3. Click en "Log in"
 
@@ -162,7 +162,7 @@ La tabla se crea automáticamente gracias a `spring.jpa.hibernate.ddl-auto=updat
 Asegúrate de crear la base de datos PostgreSQL antes de ejecutar la aplicación.
 
 ### Error: Puerto 8080 en uso
-La aplicación está configurada para usar el puerto 8081. Si necesitas cambiarlo, edita `server.port` en `application.properties`.
+La aplicación está configurada para usar el puerto 8082. Si necesitas cambiarlo, edita `server.port` en `application.properties`.
 
 > Nota sobre EDB / PgAdmin:
 >- EDB Postgres (EnterpriseDB) incluye una interfaz web (PgAdmin) que por defecto corre en `http://localhost:8080`.
