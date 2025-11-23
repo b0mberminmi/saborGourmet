@@ -65,6 +65,7 @@ public class ReservaController {
     public String crearReserva(
             @RequestParam("fecha") String fechaStr,
             @RequestParam("cantidadPersonas") int cantidadPersonas,
+            @RequestParam(value = "mesaId", required = false) Long mesaId,
             Authentication auth,
             Model model) {
 
@@ -81,10 +82,13 @@ public class ReservaController {
         }
 
         try {
-            reservaService.crearReserva(usuario, fecha, cantidadPersonas);
+            reservaService.crearReserva(usuario, fecha, cantidadPersonas, mesaId);
             return "redirect:/reservas?success";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
+            // Necesitamos volver a poblar la vista con fecha y mesas disponibles
+            model.addAttribute("fecha", fecha);
+            model.addAttribute("mesasDisponibles", reservaService.obtenerMesasDisponiblesParaFecha(fecha));
             return "reservas-detalle";
         }
     }

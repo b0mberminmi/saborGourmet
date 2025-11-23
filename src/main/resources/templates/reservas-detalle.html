@@ -27,31 +27,29 @@
         </div>
     </div>
 
-    <ul class="list-group mt-3" th:if="${!#lists.isEmpty(mesasDisponibles)}">
-        <li class="list-group-item"
-            th:each="mesa : ${mesasDisponibles}">
-            <span th:text="${mesa.nombre}"></span>
-        </li>
-    </ul>
+    <form th:if="${!#lists.isEmpty(mesasDisponibles)}" th:action="@{/reservas/crear}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="hidden" name="fecha" th:value="${fecha}" />
 
-    <hr>
+        <div class="list-group mt-3">
+            <label class="list-group-item" th:each="mesa : ${mesasDisponibles}">
+                <input type="radio" name="mesaId" th:value="${mesa.id}" required />
+                <strong th:text="${mesa.nombre}"></strong>
+            </label>
+        </div>
 
-    <!-- Solo mostramos el formulario si hay mesas disponibles -->
-    <div th:if="${!#lists.isEmpty(mesasDisponibles)}">
-        <h4>Crear reserva</h4>
+        <hr />
 
-        <form th:action="@{/reservas/crear}" method="post">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-
-            <input type="hidden" name="fecha" th:value="${fecha}" />
-
+        <div>
             <label>Cantidad de personas:</label>
             <input type="number" min="1" max="20" name="cantidadPersonas"
                    class="form-control mb-3" required />
 
             <button class="btn btn-success">Reservar</button>
-        </form>
-    </div>
+        </div>
+    </form>
+
+    
 
     <script src="/js/bootstrap.bundle.min.js"></script>
 </body>

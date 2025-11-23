@@ -84,9 +84,10 @@ public class ReservaService {
     }
 
     /**
-     * Crea una reserva asignando automáticamente una mesa disponible.
+     * Crea una reserva. Si se indica `mesaId`, intenta asignar esa mesa (si está disponible),
+     * si no se indica, asigna automáticamente la primera mesa disponible.
      */
-    public Reserva crearReserva(Usuarios usuario, LocalDate fecha, int cantidadPersonas) {
+    public Reserva crearReserva(Usuarios usuario, LocalDate fecha, int cantidadPersonas, Long mesaId) {
         validarFecha(fecha);
         validarCantidadPersonas(cantidadPersonas);
         validarReservaUnicaPorDia(usuario, fecha);
@@ -97,7 +98,20 @@ public class ReservaService {
             throw new RuntimeException("No hay mesas disponibles para la fecha seleccionada");
         }
 
-        Mesa mesaAsignada = mesasDisponibles.get(0); // Tomamos la primera disponible
+        Mesa mesaAsignada;
+
+        if (mesaId != null) {
+            // Verificar que la mesa solicitada esté entre las disponibles
+            boolean encontrada = mesasDisponibles.stream().anyMatch(m -> m.getId().equals(mesaId));
+            if (!encontrada) {
+                throw new RuntimeException("La mesa seleccionada no está disponible para la fecha indicada");
+            }
+            mesaAsignada = mesaRepository.findById(mesaId)
+                    .orElseThrow(() -> new RuntimeException("Mesa no encontrada"));
+        } else {
+            // Tomamos la primera disponible
+            mesaAsignada = mesasDisponibles.get(0);
+        }
 
         Reserva nuevaReserva = new Reserva();
         nuevaReserva.setUsuario(usuario);

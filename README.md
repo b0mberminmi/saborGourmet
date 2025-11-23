@@ -27,6 +27,7 @@ Sistema de gestión de reservas desarrollado con Spring Boot y PostgreSQL.
 Ejecuta los siguientes comandos en `psql` o `pgAdmin`:
 
 ```sql
+-- Crear base de datos y usuario (ejemplo)
 CREATE DATABASE saborGourmet;
 CREATE USER saborGourmet WITH PASSWORD 'saborGourmet';
 GRANT ALL PRIVILEGES ON DATABASE saborGourmet TO saborGourmet;
@@ -66,6 +67,8 @@ mvn spring-boot:run
 ```
 
 La aplicación estará disponible en: **http://localhost:8081**
+
+> Nota: si otro servicio ocupa el puerto 8081, cambia `server.port` en `src/main/resources/application.properties`.
 
 ## 📱 Endpoints Principales
 
@@ -161,6 +164,11 @@ Asegúrate de crear la base de datos PostgreSQL antes de ejecutar la aplicación
 ### Error: Puerto 8080 en uso
 La aplicación está configurada para usar el puerto 8081. Si necesitas cambiarlo, edita `server.port` en `application.properties`.
 
+> Nota sobre EDB / PgAdmin:
+>- EDB Postgres (EnterpriseDB) incluye una interfaz web (PgAdmin) que por defecto corre en `http://localhost:8080`.
+>- Ese servidor web no afecta el puerto en el que tu aplicación Spring Boot escucha (configurado en `server.port`).
+>- Si necesitas detener PgAdmin/EDB temporalmente en Windows usa `services.msc` o los comandos PowerShell para detener el servicio.
+
 ### Error: Conexión a PostgreSQL rechazada
 Verifica que PostgreSQL esté corriendo y que las credenciales en `application.properties` sean correctas.
 
@@ -177,10 +185,12 @@ Verifica que PostgreSQL esté corriendo y que las credenciales en `application.p
 
 
 ## 👨‍💻 Autores
-- Loretto Herrera y Sebastián Masferrer.
+- Loretto Herrera
+- Sebastián Masferrer
+
 Proyecto desarrollado para el curso de Desarrollo de Software Web II - IPSS.
 
 
 ## 📄 Licencia
 
-Este proyecto es de uso académico y está estríctamente prohibido su uso para usos comerciales.
+Este proyecto es de uso académico. Consulta con los autores antes de usarlo con fines comerciales.
