@@ -185,6 +185,7 @@ Verifica que PostgreSQL esté corriendo y que las credenciales en `application.p
 
 
 ## 👨‍💻 Autores
+Devia:
 - Loretto Herrera
 - Sebastián Masferrer
 
